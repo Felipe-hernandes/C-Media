@@ -1,0 +1,93 @@
+using System;
+					
+public class Aluno {
+	private double P1 {get; set;}
+	private double Ma1 {get; set;}
+	private double Mb1 {get; set;}
+	private double P2 {get; set;}
+	private double Ma2 {get; set;}
+	private double Mb2 {get; set;}
+	
+	private double Aulas {get; set;}
+	private double Faltas {get; set;}
+	
+	public Aluno() {
+		
+	}
+	
+	public Aluno (double P1, double Mb1, double Ma1, double P2, double Mb2, double Ma2, double Aulas, double Faltas) {
+		this.P1 = P1;
+		this.Mb1 = Mb1;
+		this.Ma1 = Ma1;
+		this.P2 = P2;
+		this.Mb2 = Mb2;
+		this.Ma2 = Ma2;
+		
+		this.Aulas = Aulas;
+		this.Faltas = Faltas;
+		
+	}
+	
+	public double calculaNotas()
+	{
+		var A1 = (0.7 * P1) + (0.2 * Mb1) + (0.1 * Ma1);
+		var A2 = (0.7 * P2) + (0.2 * Mb2) + (0.1 * Ma2);
+		
+		var media = (A1 + 2*A2) / 3;
+		
+		return media;
+		
+	}	
+	
+	public double calculaFaltas() {
+		var z = (Faltas*100)/Aulas;
+		
+		return z;
+	}
+	 
+	public string calculaSituacao(double media, double faltas) {
+		string situacao;
+		
+		if (faltas < 75) {
+			if (media >= 5.0) {
+				situacao = "Aprovado";
+			} 
+			else if (media >= 3.0 && media < 5) {
+				situacao = "RE";
+			}
+			else {
+				situacao = "Reprovado por Nota";
+			}
+		}
+		else {
+			situacao = "Reprovado por Falta";
+		}
+		
+		
+		
+		return situacao;
+		
+	}
+	
+	
+	public void imprime(double x, string y) {
+		Console.WriteLine(x);
+		Console.Write(y);
+	}
+	
+
+}
+
+public class Principal
+{
+	public static void Main()
+	{
+		Aluno aluno = new Aluno(2, 2, 2, 2, 2, 2, 50, 37);
+		
+		var A = aluno.calculaNotas();
+		var C = aluno.calculaFaltas();
+		var B = aluno.calculaSituacao(A, C);
+		
+		aluno.imprime(A, B);
+	}
+}
